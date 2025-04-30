@@ -1,0 +1,54 @@
+.container-body{
+    text-align: center;
+    align-items: center;
+    background: linear-gradient(180deg, #E5AA6B 15%,#73410C 100%); 
+    overflow-y: hidden;
+  }
+  #root{
+    width: 100%;
+
+  }
+  .couture{
+  
+  
+    position: absolute;
+    left: 50%;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    font-family: sans-serif;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;   
+  
+  }
+  
+  /* .circle {
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    background: rgba(217, 217, 217, 0.19);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  } */
+  
+  /* Bottom Arc */
+  /* .arc {
+    position: absolute;
+    width: 303px;
+    height: 320px;
+    border: 208px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    background: rgba(217, 217, 217, 0.19);
+    top: 58%;
+    right: 23%;
+    transform: rotate(259deg);
+    
+  } */
+  
+  
+  
+  
+  

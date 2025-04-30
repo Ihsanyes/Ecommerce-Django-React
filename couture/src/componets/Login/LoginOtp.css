@@ -1,0 +1,177 @@
+#root{
+    width: 100%;
+}
+
+
+
+@media screen and (min-width: 700px){
+    .form-body{
+        background: linear-gradient(180deg, #E5AA6B 15%,#73410C 100%); 
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15%;
+    
+    }
+    .form{
+        text-align: center;   
+        align-items: center;
+    }
+    .button{
+        font-weight: bold;
+        text-align: center;
+        width: 280px;
+        height: 60px;
+        border-radius: 15px;
+        border: none;
+        outline: none;
+        margin-block: 9px;
+        background-color: rgba(115, 65, 12, 1);
+        font-size: 21px;
+        color: #ffffff;
+    }
+    .button:hover{
+        color: rgba(115, 65, 12, 1);
+        background-color: #ffffff;
+    }
+    .text-container{
+        align-items: center;
+    
+    }
+    .verify-text{
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 20px;
+        font-weight:bold;
+        letter-spacing: 0.5px;
+        height: 13px;
+    }
+    .send-text{
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 14px;   
+    }
+    .otp-input{
+        color: #73410C;
+        font-weight:bold;
+        text-align: center;
+        width: 45px;
+        height: 50px;
+        border-radius: 15px;
+        border: none;
+        outline: none;
+        margin-block: 9px;
+        background-color: rgba(217, 217, 217, 0.6);
+        font-size: 21px;
+    
+    }
+    .otp-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .resend-text{
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 14px;
+        margin-top: 1px;
+        justify-content: center;
+        width: 280px;
+    }
+
+    .description-container{
+        margin-top: 20px;
+        color: #ffffff;
+        text-align: center;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+}
+@media screen and (max-width: 700px){
+    .form-body{
+        background: linear-gradient(180deg, #E5AA6B 15%,#73410C 100%); 
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .form{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;    
+    }
+    .button{
+        font-weight: bold;
+        text-align: center;
+        width: 280px;
+        height: 60px;
+        border-radius: 15px;
+        border: none;
+        outline: none;
+        margin-block: 9px;
+        background-color: rgba(115, 65, 12, 1);
+        font-size: 21px;
+        color: #ffffff;
+    }
+    .button:hover{
+        color: rgba(115, 65, 12, 1);
+        background-color: #ffffff;
+    }
+    .text-container{
+        align-items: center;
+    
+    }
+    .verify-text{
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 20px;
+        font-weight:bold;
+        letter-spacing: 0.5px;
+        height: 13px;
+    }
+    .send-text{
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 14px;
+        
+    }
+    .otp-input{
+        color: #73410C;
+        font-weight:bold;
+        text-align: center;
+        width: 45px;
+        height: 50px;
+        border-radius: 15px;
+        border: none;
+        outline: none;
+        margin-block: 9px;
+        background-color: rgba(217, 217, 217, 0.6);
+        font-size: 21px;
+    
+    }
+    .otp-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .resend-text{
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 14px;
+        margin-top: 1px;
+    }
+    .description-container{
+        content: none;
+        display: none;
+
+    }
+
+}

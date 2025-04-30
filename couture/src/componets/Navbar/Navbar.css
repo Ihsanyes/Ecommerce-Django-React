@@ -1,0 +1,307 @@
+body{
+    margin: 0;
+}
+.nav-body{
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    /* display: flex; */
+    /* justify-content: space-around ; */
+    /* place-items: 0; */
+
+}
+@media screen and (max-width: 700px){
+    .nav-bar{
+        background-color: rgba(229, 170, 107, 1); 
+        margin:0;
+        height: 108px;
+        width: 100%;
+        align-items: center;
+        padding-bottom: 5px;
+        position: fixed;
+    }
+    .menu-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* max-width:350px; */
+        padding: 13px 15px;
+    }
+    .couture-head{
+        color: #ffffff;
+        font-weight: bold;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding: 5px 0px;
+        font-size: 20px;
+        text-decoration: none;
+    }
+    .menu-lg{
+        display: none;
+        content: none;
+    }
+    /* Menu Icon (Hamburger) */
+    .menu-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5px;
+        cursor: pointer;
+        width: 25px;
+        height: 20px;
+        transition: transform 0.5s ease-in-out;
+    }
+    .dropdown-menu{
+
+        position: fixed;
+        background-color: #f9f9f9;
+        min-width: 130px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        margin-left: -95px;
+        width: fit-content;
+        border-radius: 8px;
+        margin-top: 7%;
+    }
+    .dropdown-menu,ul,li,a{
+        display: block;
+
+        text-decoration: none;
+        color: #5c5b5b;
+        font-size: 16px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding-inline-start: 0px;
+        padding-block:2px;
+        text-align: center;
+    }
+    .dropdown-divider {
+        border: none; /* Removes default border */
+        height: 1px; /* Sets thickness */
+        background-color: rgba(0, 0, 0, 0.1); /* Light grey line */
+        margin: 8px 0; /* Adds space above and below */
+
+    }
+    
+    /* Lines inside the menu icon */
+    .menu-icon span {
+        display: block;
+        width: 100%;
+        height: 5px;
+        background-color: #ffffff;
+        border-radius: 2px;
+        transition: all 0.5s ease-in-out;
+    }
+    
+    .menu-icon.open span:nth-child(1) {
+        transform: translateY(11px) rotate(45deg);
+    }
+    
+    .menu-icon.open span:nth-child(3) {
+        transform: translateY(-4.5px) rotate(-45deg);
+    }
+    .nav-search{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 20px;
+        margin-bottom: 25px;
+        margin-top: -7px;
+    }
+    .input-search{
+        width: 100%;
+        max-width: 350px;
+        height: 30px;
+        padding: 8px 12px;
+        border-radius: 14px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #999;
+    }
+    .user-setting{
+        /* margin-left: 10px; */
+        display: none;
+        content: none;
+        /* align-items: center;
+        max-width: 10px;
+        max-height: ; */
+        
+    }
+    .nav-line{
+        width: 100%;
+        height: 1px;
+        background-color: #ffffff;
+        margin-top: -17px;
+        position: fixed;
+    }
+}    
+@media screen and (min-width: 700px){
+    .nav-bar{
+        background-color: rgba(229, 170, 107, 1); 
+        margin:0;
+        height: fit-content;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: fixed;
+    }
+    .menu-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 15px;
+
+        width: 50%;
+    }
+    .couture-head{
+        color: #ffffff;
+        font-weight: bold;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding: 5px 0px;
+        font-size: 20px;
+        text-decoration: none;
+    }
+
+    .menu-lg{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0px 35px;
+        width: 80%;
+        gap: 5%;
+    }
+    /* Menu Icon (Hamburger) */
+    .menu-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5px;
+        cursor: pointer;
+        width: 25px;
+        height: 20px;
+        transition: transform 0.3s ease-in-out;
+
+        display: none;
+        content: none;
+    }
+    .dropdown-menu{
+        position: fixed;
+        background-color: #f9f9f9;
+        min-width: 125px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        margin-left: -95px;
+        width: fit-content;
+        border-radius: 8px;
+        margin-top: 4%;
+
+        display: none;
+        content: none;
+        
+    }
+    .dropdown-menu,ul,li,a{
+        display: block;
+
+        text-decoration: none;
+        color: #5c5b5b;
+        font-size: 16px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding-inline-start: 0;
+        text-align: center;
+
+
+
+        display: none;
+        content: none;
+    }
+    .dropdown-divider {
+        border: none; /* Removes default border */
+        height: 1px; /* Sets thickness */
+        background-color: rgba(0, 0, 0, 0.1); /* Light grey line */
+        margin: 8px 0; /* Adds space above and below */
+
+
+        display: none;
+        content: none;
+
+    }
+    /* Dark mode or custom styling */
+    .dark-theme .dropdown-divider {
+        background-color: rgba(255, 255, 255, 0.2);
+
+
+        display: none;
+        content: none;
+    }
+    
+    /* Lines inside the menu icon */
+    .menu-icon span {
+        display: block;
+        width: 100%;
+        height: 5px;
+        background-color: #ffffff;
+        border-radius: 2px;
+        transition: all 0.5s ease-in-out;
+
+
+        display: none;
+        content: none;
+    }
+    
+    .menu-icon.open span:nth-child(1) {
+        transform: translateY(11px) rotate(45deg);
+
+        display: none;
+        content: none;
+    }
+    
+    .menu-icon.open span:nth-child(3) {
+        transform: translateY(-4.5px) rotate(-45deg);
+
+        display: none;
+        content: none;
+    }
+    .nav-search{
+        display: flex;
+        align-items: center;
+        /* justify-content: center; */
+        /* padding: 0px 20px; */
+        /* margin-bottom: 25px; */
+        /* margin-top: -7px; */
+
+        width: 50%;
+        float: right;
+        justify-content: space-between;
+    }
+    .input-search{
+        width: 100%;
+        max-width: 350px;
+        height: 25px;
+        padding: 8px 12px;
+        border-radius: 14px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #999;
+    }
+    .user-setting,a{
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+        margin-right: 5px;
+        gap: 5px;
+        width:max-content;
+    }
+    .user-setting-img{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .nav-line{
+        width: 100%;
+        height: 1px;
+        background-color: #ffffff;
+        margin-top: 58px;
+        position: fixed;
+    }
+}
