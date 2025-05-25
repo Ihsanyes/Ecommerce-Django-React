@@ -1,0 +1,194 @@
+.order_container {
+    /* background-color: rgb(182, 212, 238); */
+    margin-top: 50px;
+    display: flex;
+    margin-inline: 0 auto;
+}
+
+.address_container {
+    /* background-color: antiquewhite; */
+    width: 70%;
+    max-width: 600px;
+    padding: 40px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* float: left; */
+}
+
+.address_form {
+    background-color: rgba(106, 114, 111, 0.34);
+    padding: 10px 35px 35px 35px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    width: 100%;
+}
+
+/* .address_form form {
+    padding-top: 5px;
+} */
+
+.address_title {
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.address_form input {
+    margin-block: 10px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.input_numer_contry,
+.input_city_state {
+    display: flex;
+    gap: 10px;
+}
+
+.input_numer_contry input,
+.input_city_state input {
+    width: 50%;
+}
+
+.address_btn {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #e187118f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.address_btn:hover {
+    background-color: #ffffff;
+    /* font-size: 16px; */
+    color: black;
+    transition: 0.5s;
+}
+
+.address_hr {
+    ruby-align: center;
+    color: black;
+}
+
+
+
+.pay_container {
+    /* background-color: rgba(122, 122, 122, 0.511); */
+    width: 30%;
+    /* height: 100vh; */
+    max-width: 300px;
+
+
+    padding: 45px 30px 40px 30px;
+    /* margin: 0 auto; */
+    margin-right: 30px;
+}
+
+.items_price {
+    border-radius: 10px;
+    border: solid 1px black;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+    margin-bottom: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    /* padding:  0px 10px 5px 0px; */
+
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.items_price .order_items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding-inline: 50px;
+}
+
+.items_price .order_price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding-inline: 30px;
+}
+
+
+/* .items_price{
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    border: solid 1.5px black;
+    border-radius: 15px;
+    height: fit-content;
+    margin: 20px 10px 10px 20px;
+    width: 150px;
+} */
+.items_price hr {
+    color: black;
+    display: block;
+    border-color: black;
+}
+
+.upi_order_btns {
+    /* background-color: #ffffff; */
+    flex-direction: column;
+    display: flex;
+    /* height: 90px; */
+    /* justify-content: space-between; */
+    /* row-gap: px; */
+}
+
+.upi_order_btns .upi_btn {
+    /* background-color:antiquewhite; */
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 5px; */
+    /* padding-top: 5px; */
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    ;
+}
+
+.upi_order_btns .upi_btn input {
+    /* padding-top: 15px !important; */
+    float: left !important;
+}
+
+.order_btn {
+    margin-top: 10px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #e187118f;
+    color: #ffffff;
+    font-weight: bold;
+}
+.order_btn:hover{
+    /* background-color: #ffffff; */
+    /* color: black; */
+        font-size: 18px;
+        transition: 0.2s ;
+
+}

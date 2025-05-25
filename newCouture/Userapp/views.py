@@ -120,14 +120,17 @@ def verify_otp(request):
         phone_number = register_stored_data['phone']
         
         print(email,phone_number,otp)
-        user_obj, _ = User.objects.get_or_create(username=email)
-    
+        user_obj, _ = User.objects.get_or_create(
+            username=email,
+            defaults={"email": email}  # ✅ Set the email field properly
+)    
         customer_user, created = CustomerUser.objects.get_or_create(
             email=email,
             defaults={"phone_number": phone_number, "user": user_obj}
         )
 
         refresh = RefreshToken.for_user(user_obj)
+        # refresh
         print("refresh",refresh)
         print("access",refresh.access_token)
 
@@ -140,10 +143,49 @@ def verify_otp(request):
             "access": str(refresh.access_token),
         })
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    user = request.user
+    # Assuming you have a one-to-one relation between User and CustomerUser
+    customer_user = CustomerUser.objects.get(user=user)
+    print(customer_user.email,customer_user.phone_number,customer_user.name)
+    return Response({
+        "email": customer_user.email,
+        "phone": customer_user.phone_number,
+        "name": customer_user.name
+        # add more fields if needed
+    })
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_user(request):
+    user = request.user
+    customer_user = CustomerUser.objects.get(user=user)
+    print(customer_user.email,customer_user.phone_number,customer_user.name)
+    name = request.data.get("name")
+    phone_number = request.data.get("phone")
+    print(name,phone_number)
+
+    if name:
+        customer_user.name = name
+    if phone_number:
+        customer_user.phone_number = phone_number
+
+    customer_user.save()
+    print(customer_user.email,customer_user.phone_number,customer_user.name)
+    return Response({
+        "message": "User updated successfully",
+        "email": customer_user.email,
+        "phone": customer_user.phone_number,
+        "name": customer_user.name
+    })
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def home(request):
+    user = request.user
+    print(user)
     msg = 'hellow world'
     return Response(msg)

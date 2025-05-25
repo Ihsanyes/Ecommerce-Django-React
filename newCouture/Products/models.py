@@ -51,7 +51,7 @@ class Product(models.Model):
     # ]
     category = models.ForeignKey(Category,on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=200)
-    product_brand = models.ManyToManyField(ProductBrand,related_name='product_brand',blank=True)
+    product_brand = models.ForeignKey(ProductBrand,on_delete=models.CASCADE, related_name='product_brand',null=True, blank=True)
     description = models.TextField(blank=True,null=True)
     price = models.DecimalField(max_digits=10,decimal_places=2)
     discount_off = models.IntegerField(default=0,validators=[MinValueValidator(0), MaxValueValidator(100)],null=True, blank=True)
@@ -63,6 +63,7 @@ class Product(models.Model):
 class Size(models.Model):
     SIZE_CHOICES = [
         # Standard Clothing Sizes
+        ('Free','Free'),
         ('XS', 'Extra Small'),
         ('S', 'Small'),
         ('M', 'Medium'),

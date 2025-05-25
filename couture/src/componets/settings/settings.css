@@ -1,0 +1,107 @@
+.profile-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  margin-top: 80px;
+  font-family: Arial, sans-serif;
+  border: solid 0px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.194) !important;    
+  border-radius: 15px;
+  padding: 10px 30px 10px 30px ;
+
+}
+
+.avatar-container {
+  text-align: center;
+  /* position: relative; */
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #d3d3d3;
+  margin: 0 auto;
+}
+
+.field-group {
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Add this */
+.input-wrapper:focus-within {
+
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5) !important;
+}
+
+.field-text {
+  flex: 1;
+}
+
+.field-input {
+  flex: 1;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+.edit-icon {
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+
+
+/* ********************  MOBAIL VIEW  ************************* */
+
+@media screen and (max-width:700px){
+  .profile-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    margin:150px 30px 0 30px ;
+    font-family: Arial, sans-serif;
+    border: solid 0px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.194) !important; 
+    padding: 10px 30px 10px 30px ;
+}
+  
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Add this */
+.input-wrapper:focus-within {
+
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5) !important;
+}
+
+.field-text {
+  flex: 2;
+}
+
+.field-input {
+  flex: 1;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+}

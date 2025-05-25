@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mkc-+g2_6gp6rg78p$ubgv64kxgp-j-(jwydjtet7$!orza+3)'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
     "corsheaders",
     'Orders',
     'Payments',
@@ -60,41 +61,40 @@ MIDDLEWARE = [
 
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # for React (CRA)
-    "http://127.0.0.1:8000",  # for Vite
-    "http://192.168.43.148:5173",
-    "http://192.168.1.74:5173",
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS').split(',')
 
-]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
+
 from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
-}
-
-SIMPLE_JWT = {
     'USER_ID_FIELD': 'email',
     'USER_ID_CLAIM': 'email',
 }
 
+# SIMPLE_JWT = {
+# }
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "ihsanmuhammadalik@gmail.com"  # Replace with your Gmail
-EMAIL_HOST_PASSWORD = "thhc xita sqka wzez"  # Replace with generated App Password
+
+EMAIL_BACKEND = config('OTP_EMAIL_BACKEND')
+EMAIL_HOST = config('OTP_EMAIL_HOST')
+EMAIL_PORT = config('OTP_EMAIL_PORT')
+EMAIL_USE_TLS = config('OTP_EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_USER = config('OTP_EMAIL_HOST_USER')  # Replace with your Gmail
+EMAIL_HOST_PASSWORD = config('OTP_EMAIL_HOST_PASSWORD')  # Replace with generated App Password
 
 ROOT_URLCONF = 'Couture.urls'
 
@@ -122,11 +122,11 @@ WSGI_APPLICATION = 'Couture.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'caaaatr',
-        'USER':'root',
-        'PASSWORD':'000059',
-        'HOST':'localhost',
-        'PORT':3306,
+        'NAME':config('DATABASE_NAME'),
+        'USER':config('DATABASE_USER'),
+        'PASSWORD':config('DATABASE_PASSWORD'),
+        'HOST':config('DATABASE_HOST'),
+        'PORT':config('DATABASE_PORT'),
         'OPTIONS':{
             'init_command':"SET sql_mode='STRICT_TRANS_TABLES'"
         }

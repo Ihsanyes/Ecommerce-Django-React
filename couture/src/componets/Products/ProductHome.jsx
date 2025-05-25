@@ -1,109 +1,202 @@
-// import "./CategorySection.css"; // Import CSS file
-import Navbar from "../Navbar/Navbar";
-import "./ProductHome.css";
 import { useState, useEffect } from "react";
-
-// import { Link } from "react-router-dom";
-import React from 'react'
-// import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
-
-
+import axios from "axios";
+// import Navbar from "../Navbar/Navbar";
+import "./ProductHome.css";
+import { API_URL } from "../../Api_urls"; // Adjust the import path as necessary
+import { Link } from "react-router-dom";
 
 
 function ProductHome() {
+  const [showProduct, setShowProduct] = useState([]);
+  const [cart, setCart] = useState({});
+  const [selectedGroup, setSelectedGroup] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 4;
 
-  const productsList = [
-    { id: 1, brand: "Adidas", name: "Shirt", originalPrice: 1509, discount: 60, size: ["sm","lg"], image: "src/assets/shirt-show.jpg"},
-    { id: 2, brand: "Adidas", name: "Shirt", originalPrice: 2109, discount: 50, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 3, brand: "Adidas", name: "Shirt", originalPrice: 1149, discount: 60, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 4, brand: "Adidas", name: "Shirt", originalPrice: 1509, discount: 60, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 5, brand: "Adidas", name: "Shirt", originalPrice: 1100, discount: 40, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 6, brand: "Adidas", name: "Shirt", originalPrice: 1200, discount: 60, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 7, brand: "Adidas", name: "Shirt", originalPrice: 2200, discount: 10, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 8, brand: "Adidas", name: "Shirt", originalPrice: 1300, discount: 25, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 9, brand: "Adidas", name: "Shirt", originalPrice: 1700, discount: 20, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-    { id: 10, brand: "Adidass", name: "Shirt", originalPrice: 1900, discount: 90, size: ["Free"], image: "src/assets/shirt-show.jpg"},
-  ];
+  // 1. Fetch all products from backend
+  const product_get = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/P/get-products/`);
+      setShowProduct(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const priceFilter = [{
-    "price":["Under ₹500","₹500 - ₹1000","₹1000 - ₹2000","Above ₹2000"]
+  useEffect(() => {
+    product_get();
+  }, []);
 
-  }]
-  const category = [{
-    "mensClothing":["Shirts","T Shirts","Inner Wear","Jeans, trousers & more","Winter Wear","Jackets","Ethnic Wear"]
-  }]
+  // 2. Flatten nested product list with group and category
+  const productsList = showProduct.flatMap(group =>
+    group.category.flatMap(cat =>
+      cat.products.map(product => ({
+        ...product,
+        groupName: group["group name"],
+        category: cat.category,
+      }))
+    )
+  );
+
+  // 3. Filter logic: by group name, category, and price range
+  const filteredProducts = productsList.filter(product => {
+    const priceValid =
+      product.discountPrice >= priceRange[0] &&
+      product.discountPrice <= priceRange[1];
+    const groupValid = !selectedGroup || product.groupName === selectedGroup;
+    const categoryValid = !selectedCategory || product.category === selectedCategory;
+    return priceValid && groupValid && categoryValid;
+  });
+
+  // 4. Pagination
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  // 5. Category options based on selected group
+  const categoryOptions = selectedGroup
+    ? showProduct.find(g => g["group name"] === selectedGroup)?.category.map(c => c.category) || []
+    : [];
+
   return (
     <div>
-      <Navbar/>
       <div className="main-container">
+        {/* Sidebar for filter controls */}
         <div className="sidebar">
-          <h5>Filter by Price</h5>
-          {priceFilter[0].price.map((item, index) => (
-            <div key={index} className="filter-item">
-              <input type="checkbox" id={`price-${index}`} />
-              <label htmlFor={`price-${index}`}>{item}</label>
-            </div>
-          ))}
-          <h5>Category</h5>
-          {category[0].mensClothing.map((item, index) => (
-            <div key={index} className="filter-item">
-              <input type="checkbox" id={`category-${index}`} />
-              <label htmlFor={`category-${index}`}>{item}</label>
-            </div>
-          ))}
 
+          {/* Group Filter */}
+          <div className="product-filter-container">
+            
+            <div className="group-filter">
+              <select
+                value={selectedGroup}
+                onChange={(e) => {
+                  setSelectedGroup(e.target.value);
+                  setSelectedCategory(""); // Reset category on group change
+                }}
+                >
+                <option value="">All</option>
+                {[...new Set(showProduct.map(g => g["group name"]))].map(group => (
+                  <option key={group} value={group}>{group}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Category Filter (depends on selected group) */}
+            {selectedGroup && (
+              <div className="category-filter">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="">All</option>
+                  {categoryOptions.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+          )}
+          </div>
+
+          {/* Price Range Filter */}
+          <div className="price-filter-container">
+            <label>Min Price:</label>
+            <input
+              type="number"
+              value={priceRange[0]}
+              onChange={(e) =>
+                setPriceRange([+e.target.value, priceRange[1]])
+              }
+            />
+            <label>Max Price:</label>
+            <input
+              type="number"
+              value={priceRange[1]}
+              onChange={(e) =>
+                setPriceRange([priceRange[0], +e.target.value])
+              }
+            />
+          </div>
         </div>
-        <div className="product-container">
-          <h2>Product Listing</h2>
-          <div className="product-list">
-            {productsList.map((product) => (
+
+        {/* Product cards */}
+        <div className="card-container">
+          <div className="card-list">
+            {currentProducts.map((product) => (
               <div key={product.id} className="product-list-card">
-                <img src={product.image} alt={product.name} className="product-image" />
-                <div className="product-details">
-                  <h3>{product.brand}</h3>
-                  <p>{product.name}</p>
-                  <p>Original Price: ₹{product.originalPrice}</p>
-                  <p>Discount: {product.discount}%</p>
-                  <p>Size: {product.size.join(", ")}</p>
+                <Link to={`/product_detail/${product.id}`}>
+                  <img
+                    src={`${API_URL}${product.image}`}
+                    alt={product.name}
+                    className="card-image"
+                  />
+                </Link>
+
+                <div className="product-infos">
+                  <p className="sponsoreds">
+                    Sponsored <span className="brands">{product.brand}</span>
+                  </p>
+                  <Link to={`/product_detail/${product.id}`}>
+                    <p className="product-names">{product.name.length > 23 ? product.name.slice(0, 20) + '...' : product.name}</p>
+                  </Link>
+
+                  <p className="product-prices">
+                    <span className="prices">₹{product.discountPrice} </span>
+                    <span className="original-prices">₹{product.originalPrice} </span>
+                    <span className="discounts">{product.discount}% off</span>
+                  </p>
+
+                  <p className="product-sizes">
+                    Size: <span>{product.size.map(s => s.size).join(", ")}</span>
+                  </p>
+{/* 
+                  <div className="add-cart">
+                    <button
+                      onClick={() =>
+                        setCart((prev) => ({
+                          ...prev,
+                          [product.id]: Math.max((prev[product.id] || 0) - 1, 0),
+                        }))
+                      }
+                      disabled={!cart[product.id]}
+                    >
+                      -
+                    </button>
+                    <span>{cart[product.id] || 0}</span>
+                    <button
+                      onClick={() =>
+                        setCart((prev) => ({
+                          ...prev,
+                          [product.id]: (prev[product.id] || 0) + 1,
+                        }))
+                      }
+                    >
+                      +
+                    </button>
+                  </div> */}
                 </div>
               </div>
             ))}
           </div>
 
-        </div>
 
+          {/* Pagination Controls */}
+          <div className="pagination">
+            <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+              Prev
+            </button>
+            <span> Page {currentPage} of {totalPages} </span>
+            <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ProductHome
-
-
-
-// {/* <Container className="main-container">
-// <Row className="mt-4">
-//   <Col md={3} className="sidebar">
-//     {/* <h5>Filter by Price</h5>
-//     {priceFilter[0].price.map((item, index) => (
-//       <div key={index} className="filter-item">
-//         <input type="checkbox" id={`price-${index}`} />
-//         <label htmlFor={`price-${index}`}>{item}</label>
-//       </div>
-//     ))} */}
-//     <h5>Category</h5>
-//     {category[0].mensClothing.map((item, index) => (
-//       <div key={index} className="filter-item">
-//         <input type="checkbox" id={`category-${index}`} />
-//         <label htmlFor={`category-${index}`}>{item}</label>
-//       </div>
-//     ))}
-//   </Col>
-//   <Col md={9}>
-//     {/* Product listing will go here */}
-//     <h2>Product Listing</h2>
-//   </Col>
-// </Row>
-// </Container> */}
+export default ProductHome;
