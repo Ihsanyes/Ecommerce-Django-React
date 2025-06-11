@@ -9,8 +9,7 @@
     width: 70%;
     
 }
-.goback{
-    /* background-color: rgba(229, 170, 107, 1); */
+/* .goback{
     border: rgb(0, 0, 0) solid 2px;
     font-size: 30px;
     height: 35px;
@@ -22,7 +21,7 @@
     border-radius: 15px;
     margin: 0px 10px 10px 20px;
     padding-top: 5px;
-}
+} */
 .cart-main{
     display: flex;
     margin-bottom: .5px;
@@ -147,7 +146,6 @@
     width: 230px;
     }
     .goback{
-        /* background-color: rgba(229, 170, 107, 1); */
         border: rgb(0, 0, 0) solid 2px;
         font-size: 30px;
         height: 35px;
