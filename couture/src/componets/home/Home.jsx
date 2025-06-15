@@ -147,6 +147,10 @@ const OfferShowSection = () => {
 const ProductShow = () => {
   const [showProducts, setShowProduct] = useState([]);
   console.log(showProducts)
+  const navigate = useNavigate()
+  const handleFilterClick = (groupName) => {
+    navigate(`/products/?group=${encodeURIComponent(groupName)}`);
+  }
 
   const product_get = async () => {
     try {
@@ -194,7 +198,7 @@ const ProductShow = () => {
           </Link>
         ))}
         <div className="more-card">
-          <Link to={"/products"} className="more-card">More</Link>
+          <p onClick={()=>handleFilterClick('Footwear')} className="more-card">More</p>
         </div>
       </div>
     </div>
@@ -202,6 +206,10 @@ const ProductShow = () => {
 };
 const ProductShow2 = () => {
   const [showProducts, setShowProduct] = useState([]);
+    const navigate = useNavigate()
+  const handleFilterClick = (groupName) => {
+    navigate(`/products/?group=${encodeURIComponent(groupName)}`);
+  }
 
   const product_get = async () => {
     try {
@@ -249,7 +257,7 @@ const ProductShow2 = () => {
           </Link>
         ))}
         <div className="more-card">
-          <Link to={"/products"} className="more-card">More</Link>
+          <p onClick={()=>handleFilterClick('Men’s Clothing')} className="more-card">More</p>
         </div>
       </div>
     </div>

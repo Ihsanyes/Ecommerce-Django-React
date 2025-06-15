@@ -6,8 +6,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
-
-from Userapp.models import CustomerUser
+from .serializers import DeliveryAddressSerializer
+from Userapp.models import CustomerUser,DeliveryAddress
 from Userapp.utils import generate_otp,send_otp_email
 
 
@@ -162,10 +162,11 @@ def current_user(request):
 def update_user(request):
     user = request.user
     customer_user = CustomerUser.objects.get(user=user)
-    print(customer_user.email,customer_user.phone_number,customer_user.name)
+    print("aaaaaaaaaaaaaa",user.id,customer_user.id)
+    # print(customer_user.email,customer_user.phone_number,customer_user.name)
     name = request.data.get("name")
     phone_number = request.data.get("phone")
-    print(name,phone_number)
+    # print(name,phone_number)
 
     if name:
         customer_user.name = name
@@ -173,7 +174,7 @@ def update_user(request):
         customer_user.phone_number = phone_number
 
     customer_user.save()
-    print(customer_user.email,customer_user.phone_number,customer_user.name)
+    # print(customer_user.email,customer_user.phone_number,customer_user.name)
     return Response({
         "message": "User updated successfully",
         "email": customer_user.email,
@@ -189,3 +190,18 @@ def home(request):
     print(user)
     msg = 'hellow world'
     return Response(msg)
+
+
+
+
+@api_view(['POST'])
+@permission_classes({IsAuthenticated})
+def add_delivery_address(request):
+    serializer = DeliveryAddressSerializer(data=request.data)
+    if serializer.is_valid():
+        # serializer.save(user=request.user)
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',serializer.data)
+        return Response(serializer.data, status=201)
+    else:
+        print('ssssssssssssssssss',serializer.errors)  # Helpful for debugging
+        return Response(serializer.errors, status=400) 

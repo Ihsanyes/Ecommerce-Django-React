@@ -8,5 +8,6 @@ urlpatterns = [
     path('login-otp/',views.login_otp),
     path('current_user/',views.current_user),
     path('update_user/',views.update_user),
-    path('',views.home)
+    path('',views.home),
+    path('delivery_address/',views.add_delivery_address)
 ]

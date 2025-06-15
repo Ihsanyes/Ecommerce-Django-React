@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './ProductDetail.css';
-import {API_URL} from '../../Api_urls';
+import { API_URL } from '../../Api_urls';
 import axios from 'axios';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../auth/Axios_instance';
 
 
 function ProductDetail() {
-  const [product,setProduct] = useState({})
+  const [product, setProduct] = useState({})
   // const [size, setSize] = useState([]);
   const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(0);
   const { id } = useParams();
-  console.log(id);  
-  console.log(quantity);  
-  console.log(selectedSize);  
-  
+  console.log(id);
+  console.log(quantity);
+  console.log(selectedSize);
+
   const navigate = useNavigate()
   const handleRedirect = () => {
     navigate('/view_cart'); // Replace with your path
@@ -27,14 +27,14 @@ function ProductDetail() {
   // });
 
   const oneProduct = async () => {
-    try{
-        const response = await axios(`${API_URL}P/get_one_product/${id}`);
-        setProduct(response.data)
-      }catch(error){
-        console.error("Error fetching product:", error);
-      }
+    try {
+      const response = await axios(`${API_URL}P/get_one_product/${id}`);
+      setProduct(response.data)
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
   }
-  useEffect(()=>{oneProduct()},[id])
+  useEffect(() => { oneProduct() }, [id])
 
   // const product = {
   //   brand: 'Adidas',
@@ -51,12 +51,12 @@ function ProductDetail() {
   //     setSelectedSize(size);
   //   }
   // };
-  const AddCart = async () =>{
+  const AddCart = async () => {
     if (!selectedSize || quantity <= 0) {
       alert("Please select a size and quantity before adding to cart.");
       return;
     }
-    try{
+    try {
       const response = await axiosInstance.post(`${API_URL}O/add_cart/`, {
         product_id: id,
         quantity: quantity,
@@ -64,7 +64,7 @@ function ProductDetail() {
       });
       console.log(response.data);
       handleRedirect()
-    }catch(error){
+    } catch (error) {
       console.error("Error adding to cart:", error);
     }
   }
@@ -76,7 +76,7 @@ function ProductDetail() {
   };
 
   //*********** */ CALCULATE DISCOUNT PRICE
-  const discountedPrice = product.price - (product.price * product.discount_off/100).toFixed(0)
+  const discountedPrice = product.price - (product.price * product.discount_off / 100).toFixed(0)
 
 
   return (
@@ -84,7 +84,7 @@ function ProductDetail() {
       <div className="product-images">
         {/* Replace with your actual image gallery component */}
         <div className="main-image">
-        {product.image && (<img src={`${API_URL}${product.image}`} alt={product.name} />)}
+          {product.image && (<img src={`${API_URL}${product.image}`} alt={product.name} />)}
         </div>
         <div className="thumbnail-gallery">
           {/* Thumbnails would go here */}
@@ -94,7 +94,7 @@ function ProductDetail() {
       <div className="productInfo">
         <h1 className="brandName">{product.product_brand?.name}</h1>
         <h2 className="productName">{product.name}</h2>
-        
+
         <div className="price-section">
           <span className="real-price">MRP: ₹{product.price}</span>
           <span className="discounted-price">₹{discountedPrice}</span>
@@ -102,26 +102,26 @@ function ProductDetail() {
         </div>
 
         <div className="size-section">
-            <p className="product-sizes">
-              Size: <span>{product.product_sizes?.map(s => s.size).join(", ")}</span><br />
-            </p><br />
+          <p className="product-sizes">
+            Size: <span>{product.product_sizes?.map(s => s.size).join(", ")}</span><br />
+          </p><br />
           <div className="size-options">
             {product.product_sizes?.map((sizeObj) => (
               <div key={sizeObj.id}>
                 <button
-                  className={`size-btn ${sizeObj.stock? 'inStock' : ''} ${!sizeObj.stock? 'outStock' : ''}`}
+                  className={`size-btn ${sizeObj.stock ? 'inStock' : ''} ${!sizeObj.stock ? 'outStock' : ''}`}
                   disabled={!sizeObj.stock}
-                  onClick={() => setSelectedSize({"size":sizeObj.size,"sizeId":sizeObj.id})}
+                  onClick={() => setSelectedSize({ "size": sizeObj.size, "sizeId": sizeObj.id })}
 
                 >
-                  {sizeObj.size}<br/>
-                  {!sizeObj.stock? <span className="OutStock">Out of stock</span>:<span className="InStock ">In Stock</span>}
+                  {sizeObj.size}<br />
+                  {!sizeObj.stock ? <span className="OutStock">Out of stock</span> : <span className="InStock ">In Stock</span>}
 
                 </button>
               </div>
             ))}
           </div>
-            <h3 style={!selectedSize ? {visibility:'hidden'}:{}}>Selected: {selectedSize.size}</h3>
+          <h3 style={!selectedSize ? { visibility: 'hidden' } : {}}>Selected: {selectedSize.size}</h3>
         </div>
 
         <div className="description-section">

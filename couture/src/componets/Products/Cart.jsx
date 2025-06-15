@@ -9,7 +9,8 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 function Cart() {
     const [cartItems, setCartItems] = useState([])
-    console.log(cartItems)
+    console.log(cartItems.length)//--------------------- for checking the length of cart items
+    console.log((cartItems))
 
     const navigate = useNavigate()
     const goBack = () => {
@@ -52,10 +53,10 @@ function Cart() {
                         paddingTop: '5px'
                     }} ><p onClick={goBack}><MdOutlineKeyboardBackspace /></p></div>
                     {cartItems.map((x) => (
-                        <>
-                            <Link to={`/product_detail/${product.id}`}>
+                        
+                            <Link key={x.id} to={`/product_detail/${x.product_id}`}>
 
-                                <div key={x.id} className="cart-main">
+                                <div className="cart-main">
                                     <div className="cart-card">
                                         <img src={`${API_URL}${x.image}`} alt="nnnam" className="cart-product-img" />
                                         <div className="cart-product-info">
@@ -86,7 +87,7 @@ function Cart() {
                                     </div>
                                 </div>
                             </Link>
-                        </>
+                        
 
                     ))}
 
@@ -96,7 +97,7 @@ function Cart() {
                         <p>total: ₹{totalPrice.toFixed(0)}</p>
                     </div>
                     <div className="proceed-btn">
-                        <p onClick={(() => { navigate('/address') })}>Proceed to Buy</p>
+                        <p onClick={(() => { navigate('/address',{state:{itemCount:cartItems.length,totalPrice}}) })}>Proceed to Buy</p>
                     </div>
                 </div>
             </div>
