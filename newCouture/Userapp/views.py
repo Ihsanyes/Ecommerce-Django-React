@@ -193,15 +193,47 @@ def home(request):
 
 
 
-
 @api_view(['POST'])
-@permission_classes({IsAuthenticated})
+@permission_classes([IsAuthenticated])
 def add_delivery_address(request):
+    user = request.user.customeruser  # Assuming OneToOne field between User and CustomerUser
+
+    # Count existing addresses for this user
+    address_count = DeliveryAddress.objects.filter(user=user).count()
+    
+    if address_count >= 3:
+        return Response({"error": "You can only have up to 3 delivery addresses."}, status=400)
+    
     serializer = DeliveryAddressSerializer(data=request.data)
     if serializer.is_valid():
-        # serializer.save(user=request.user)
-        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',serializer.data)
+        serializer.save(user=user)
         return Response(serializer.data, status=201)
     else:
-        print('ssssssssssssssssss',serializer.errors)  # Helpful for debugging
-        return Response(serializer.errors, status=400) 
+        return Response(serializer.errors, status=400)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_delivery_address(request):
+    user = request.user.customeruser
+
+    delivery_address = DeliveryAddress.objects.filter(user=user)
+    if delivery_address is not None:
+        serializer = DeliveryAddressSerializer(delivery_address, many=True)
+        return Response(serializer.data)
+    else:
+        return Response(status=404)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def delete_delivery_address(request,id):
+    user = request.user.customeruser
+
+    delivery_address = DeliveryAddress.objects.get(id=id, user=user)
+    if delivery_address is not None:
+        delivery_address.delete()
+        print("Delivery address deleted successfully",delivery_address.id)
+        # print (delivery_address)
+
+        return Response('ok')
+
+

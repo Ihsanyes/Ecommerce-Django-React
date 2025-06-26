@@ -79,6 +79,24 @@
     color: black;
     transition: 0.5s;
 }
+.option_address{    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+.option_address.selected {
+    border: 2px solid green;
+    background-color: #f0fff0;
+}
 
 .address_hr {
     ruby-align: center;
